@@ -6,20 +6,24 @@ namespace secondMay2023
     {
         static void Main(string[] args)
         {
-            Character c = new Character(100);
-            Player player1 = new Player(100);
-            Enemy enemy1 = new Enemy(100);
+            Character c = new Character(100, 10, 20);
+            Player player1 = new Player(100, 10, 20);
+            Enemy enemy1 = new Enemy(100, 10, 20);
 
             Console.WriteLine(enemy1.levelUp());
         }
 
         class Character
         {
-            private int health;
+            protected int health = 100;
+            protected int normAtk = 10;
+            protected int pwrAtk = 20;
 
-            public Character(int health)
+            public Character(int health, int normAtk, int pwrAtk)
             {
                 this.health = health;
+                this.normAtk = normAtk;
+                this.pwrAtk = pwrAtk;
             }
 
             public int modifyHealth(int modifier)
@@ -32,11 +36,17 @@ namespace secondMay2023
             {
                 return health;
             }
+
+            public int damage(int damage)
+            {
+                health - damage;
+                return health;
+            }
         }
 
         class Player : Character
         {
-            public Player(int health) : base(health)
+            public Player(int health, int normAtk, int pwrAtk) : base(health, normAtk pwrAtk)
             {
 
             }
@@ -58,4 +68,3 @@ namespace secondMay2023
         }
     }
 }
-
