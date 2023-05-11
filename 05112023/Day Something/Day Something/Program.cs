@@ -61,7 +61,7 @@
             }
             catch (Exception ex)
             {
-                Console.WrtieLine("Invalid format");
+                Console.WriteLine("Invalid format");
             }
             return false;
         }
