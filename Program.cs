@@ -10,7 +10,8 @@ namespace secondMay2023
             Player player1 = new Player(100, 10, 20);
             Enemy enemy1 = new Enemy(100, 10, 20);
 
-            Console.WriteLine(enemy1.levelUp());
+            Console.WriteLine("1. Normal Attack. 2. Power Attack");
+            Console.ReadLine();
         }
 
         class Character
@@ -50,7 +51,6 @@ namespace secondMay2023
             {
 
             }
-
         }
 
         class Enemy : Character
