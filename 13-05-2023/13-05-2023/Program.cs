@@ -6,6 +6,7 @@
         {
             Dog d1 = new Dog("Rover");
             Cat c1 = new Cat("Garfield");
+            Hippo h1 = new Hippo("Harry");
             /*Book b1 = new Book("Lord of the Rings", 1178, Material.Hardback);
             Book b2 = new Book("The Hobbit", 2000, Material.Paperback);
             
@@ -13,7 +14,7 @@
             VideoGame v2 = new VideoGame("Wanderer", 40, Genre.RPG);
             VideoGame v3 = new VideoGame("Zoomies", 25, Genre.SimRacer);
             Console.WriteLine(v2.Genre);*/
-            Console.WriteLine(c1.Affection);
+            Console.WriteLine(h1.Affection);
 
         }
     }
@@ -77,7 +78,35 @@
         {
             Console.WriteLine("ZzzZzZz");
         }
+    }
 
+    //Using interface to implement abstract classes to a method (?)
+    interface ICanSwim
+    {
+        public void swim();
+    }
+
+    class Hippo : Animal, ICanSwim
+    {
+        public override int Speed { get; set; }
+
+        public override string Affection { get; set; }
+
+        public Hippo(string name) : base(name)
+        {
+            Speed = 40;
+            Affection = "Best not to find out.";
+        }
+
+        public override void AnimalSound()
+        {
+            Console.WriteLine("Grunt");
+        }
+
+        public void swim()
+        {
+            Console.WriteLine("Splish Splash");
+        }
     }
 
     class Dog : Animal
