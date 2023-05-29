@@ -8,10 +8,9 @@
             Gwen gwen = new Gwen("Gwen", 48, "5ft 6'", "Slim");
             Smithy smithy = new Smithy("Smithy", 28, "5ft 8'", "Stocky");
             FishingRod fr1 = new FishingRod("Large", 3, "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also coat/jacket hanging on the floor next to it which would fit a taller person");
-            InflatableLeeke leeke = new InflatableLeeke("Small", 1, "It's an inflateable Leeke... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.");
+            InflatableLeek leek = new InflatableLeek("Small", 1, "It's an inflateable Leeke... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.");
             Knife knife = new Knife("Small", 1, "An unused butter knife found on the table. Great for buttering your toast!");
 
-            Console.WriteLine(bryn.Greet);
 
             Console.WriteLine("Siwmae! What is your name? \n");
             string playerName = Console.ReadLine();
@@ -29,9 +28,9 @@
             }
 
             Console.WriteLine("\nYou are now in the room. What would you like to do? Type: " +
-                "\n 1 to speak to Character1 " +
-                "\n 2 to speak to Character2 " +
-                "\n 3 to speak to Character3 " +
+                "\n 1 to speak to Bryn " +
+                "\n 2 to speak to Gwen " +
+                "\n 3 to speak to Smithy " +
                 "\n 4 to check the body " +
                 "\n 5 to look around the room " +
                 "\n 6 to cry. " +
@@ -74,17 +73,17 @@
 
                     else if (playerInput == 5)
                     {
-                        Console.WriteLine("When looking around the room you find various items - a fishing rod, an inflatable leeke and a knife. Do you want to investigate further?");
+                        Console.WriteLine("When looking around the room you find various items - a fishing rod, an inflatable leek and a knife. Do you want to investigate further?");
                         string investigate = Console.ReadLine();
                         if (investigate == "yes")
                         {
                             Console.WriteLine("Which item would you like more information on? " +
                                 "\n1. The fishing rod" +
-                                "\n2. The inflatable leeke" +
+                                "\n2. The inflatable leek" +
                                 "\n3. The knife");
                             int itemChoice = Convert.ToInt32(Console.ReadLine());
 
-                            if(itemChoice == 1)
+                            if (itemChoice == 1)
                             {
                                 Console.WriteLine($"{fr1.Description} It is a {fr1.Size} item and has a weight of {fr1.Weight}.");
                             }
@@ -92,21 +91,36 @@
 
                             if (itemChoice == 2)
                             {
-                                Console.WriteLine($"{leeke.Description}. It is a {leeke.Size} item and has a weight of {leeke.Weight}.");
+                                Console.WriteLine($"{leek.Description}. It is a {leek.Size} item and has a weight of {leek.Weight}.");
                             }
                             else
 
                             if (itemChoice == 3)
                             {
-                                Console.WriteLine($"{leeke.Description}. It is a {leeke.Size} item and has a weight of {leeke.Weight}.");
+                                Console.WriteLine($"{leek.Description}. It is a {leek.Size} item and has a weight of {leek.Weight}.");
                             }
-                            
+                        }
+
+                        else if(investigate == "no")
+                        {
+                            Console.WriteLine("Are you sure? I'd strongly recommend reconsidering...");
+                            string secondChance = Console.ReadLine();
+                            if (secondChance == "yes")
+                            {
+                                Console.WriteLine(Guess1());
+                            }
+                            else
+
+                            if (secondChance == "no")
+                            {
+                                Console.WriteLine("Wise move. What do you want to investigate?");
+                            }
                         }
                     }
 
                     else if (playerInput == 6)
                     {
-
+                        Console.WriteLine("Like a predator to its prey, Bryn senses your fear and starts leathering you with the inflatable leek while yelling 'SURPRIIISE! SURPRIIISE!'. You can't escape and die the weirdest yet most brutal death. GAME OVER.");
                     }
 
                     break;    
@@ -118,6 +132,10 @@
             }
         }
 
+        public static string Guess1()
+        {
+            return("Okay, Who do you think is the murderer?");
+        }
 
         //Using abstract class as the Greet method will be manipulated by the Characters using Override
         abstract class Person
@@ -216,13 +234,13 @@
             }
         }
 
-        class InflatableLeeke : Items
+        class InflatableLeek : Items
         {
-            public InflatableLeeke(string Size, int Weight, string Description) : base(Size, Weight, Description)
+            public InflatableLeek(string Size, int Weight, string Description) : base(Size, Weight, Description)
             {
                 Size = "Small";
                 Weight = 1;
-                Description = "It's an inflateable Leeke... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.";
+                Description = "It's an inflateable Leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.";
             }
         }
 
