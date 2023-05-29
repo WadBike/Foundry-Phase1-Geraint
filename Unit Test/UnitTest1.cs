@@ -1,4 +1,6 @@
-﻿namespace Unit_Test;
+﻿using WhoseCoatIsThatJacket;
+
+namespace Unit_Test;
 
 public class UnitTest1
 {

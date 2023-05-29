@@ -20,7 +20,7 @@
     </Style>
 
     <Style TargetType="BoxView">
-        <Setter Property="Color" Value="Green" />
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
     <Style TargetType="Button">
@@ -403,4 +403,3 @@
     </Style>
 
 </ResourceDictionary>
-

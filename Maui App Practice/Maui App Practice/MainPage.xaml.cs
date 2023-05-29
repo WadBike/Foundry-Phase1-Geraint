@@ -34,5 +34,3 @@ public partial class MainPage : ContentPage
 		CounterBtn.IsVisible = true;
     }
 }
-
-
