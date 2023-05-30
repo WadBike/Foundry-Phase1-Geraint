@@ -295,7 +295,6 @@ namespace WhoseCoatIsThatJacket
         }
 
         public abstract string Greet();
-
     }
 
     abstract class Items
