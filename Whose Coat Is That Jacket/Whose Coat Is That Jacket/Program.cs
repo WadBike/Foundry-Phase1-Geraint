@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            //setting players and items so that they can be called throughout the game
             Player player = new Player("", 0, "Unknown", "Unknown", 100);
             Bryn bryn = new Bryn("Bryn", 46, "6ft 1'", "Slim", 100);
             Gwen gwen = new Gwen("Gwen", 48, "5ft 6'", "Slim", 100);
@@ -11,6 +12,8 @@
             FishingRod fr1 = new FishingRod("Large", 3, "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also coat/jacket hanging on the floor next to it which would fit a taller person", 100);
             InflatableLeek leek = new InflatableLeek("Small", 1, "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.", 10);
             Knife knife = new Knife("Small", 1, "An unused butter knife found on the table. Great for buttering your toast!", 1);
+
+            //will include asci art to make it more engaging. May look into changing text colour etc too if I have time.
 
             //Game introduction asking for the player's name
             Console.WriteLine("Siwmae! What is your name? \n");
@@ -83,7 +86,7 @@
                     {
                         Console.WriteLine("When looking around the room you find various items - a fishing rod, an inflatable leek and a knife. Do you want to investigate further? If you want to return to the menu, type menu to go back to the main menu.\n");
                         string investigate = Console.ReadLine().ToLower();
-                        {
+                        {   //using a while loop to execute the investigate variable giving the player the opportunity to run through each item without having to return to the main menu each time.
                             while (investigate == "yes")
                             {
                                 Console.WriteLine(ItemInfo());
@@ -112,10 +115,12 @@
                                     if (itemChoice == 4)
                                     {
                                         Console.WriteLine(mainMenu());
+                                        //initiating the break clause to back out of the while loop and back into the main menu loop
                                         break;
                                     }
                                 }
                             }
+                            //if player enters no this will trigger them to return to the main menu.
                             while (investigate == "no")
                             {
                                 {
@@ -143,29 +148,30 @@
                             int weaponChoice = Convert.ToInt32(Console.ReadLine());
 
                             if (weaponChoice == 1)
-                            {
+                            {   //calling the modify health method for Bryn and returning how much health they have left after each choice
                                 bryn.modifyHealth(-100);
-                                Console.WriteLine($"Excellent choice. You pick up the fishing rod and hit Bryn. This is Bryn's kryptonite! Bryn now has {bryn.GetHealth()} health");
+                                Console.WriteLine($"Excellent choice. You pick up the fishing rod and hit Bryn. This is Bryn's kryptonite! How the mighty have fallen. Bryn now has {bryn.GetHealth()} health");
                                 Console.WriteLine(PlayerWin());
                             }
                             else if (weaponChoice == 2)
                             {
                                 bryn.modifyHealth(-10);
-                                Console.WriteLine($"...Really? \n\n\nYou manage to grab the inflatable leek from Bryn and start smacking him. Bryn takes the inflateable leek to the face like a champ. Bryn now has {bryn.GetHealth()} health.\n");
+                                Console.WriteLine($"...Really? \n\n\nYou manage to grab the inflatable leek from Bryn and start smacking them. Bryn takes the inflateable leek to the face like a champ. Bryn now has {bryn.GetHealth()} health.\n");
                                 Console.WriteLine(BrynAttack());
                                 string rebelPlayer = Console.ReadLine();
                                 Console.WriteLine(PlayerLose());
-                                break;
-
                             }
                             else if (weaponChoice == 3)
                             {
-                                Console.WriteLine($"Ah yes, you'd think that was a wise move wouldn't you? I bet you didn't read the description! The knife does next to no damage, but leaves a bit of butter across his cheek. Bryn now has {bryn.GetHealth()} health. He is enraged by the butter! {BrynAttack()}");
+                                Console.WriteLine($"Ah yes, you'd think that was a wise move wouldn't you? I bet you didn't read the description! The knife does next to no damage, but leaves a bit of butter across their cheek. Bryn now has {bryn.GetHealth()} health. They are enraged by the butter! {BrynAttack()}\n");
                             }
                         }
                         else
-                        Console.WriteLine(PlayerLose());
-                        break;
+                            Console.WriteLine("And where do you think you're going? Bryn has a sat-nav! There's no hiding from them. They hunt you down like a lion to a wounded buffalo.\n");
+                            Console.WriteLine(BrynAttack());
+                            string rebelPlayer1 = Console.ReadLine();
+                            Console.WriteLine(PlayerLose());
+                            break;
                     }
 
                     else if (playerInput == 7)
@@ -183,7 +189,15 @@
                                     break;
                                 }
 
-                                else
+                                else if (playerGuess == "gwen")
+                                {
+                                    Console.WriteLine("No, you see... that's not right. You've just sent an innocent person to the slammer! Step away from your keyboard, you've done enough damage here.");
+                                    string rebelPlayer = Console.ReadLine();
+                                    Console.WriteLine(PlayerLose());
+                                    break;
+                                }
+
+                                else if (playerGuess == "smithy")
                                 {
                                     Console.WriteLine("No, you see... that's not right. You've just sent an innocent person to the slammer! Step away from your keyboard, you've done enough damage here.");
                                     string rebelPlayer = Console.ReadLine();
@@ -191,16 +205,17 @@
                                     break;
                                 }
                             }
-
+                            //this isn't returning what I was hoping. Need to look into it.
                             catch
                             {
                                 Console.WriteLine("Who's that? Think you've been playing too many of our games, Matt... Try again!\n");
                             }
                         }
+                        //this break clause breaks the for loop above, ending the game.
                         break;
                     }
                 }
-
+                //this returns if player enters illegal character during the main menu screen
                 catch
                 {
                     Console.WriteLine("Not a number, ya twpsyn. Try again...\n");
@@ -208,7 +223,7 @@
                 }
             }
         }
-
+        //setting these methods as a static string as it is not used anywhere else
         public static string Guess()
         {
             return "Okay, Who do you think is the murderer?\n";
@@ -224,12 +239,12 @@
             "\n 4 to check the body " +
             "\n 5 to look around the room " +
             "\n 6 to cry. " +
-            "\n7 to take a guess";
+            "\n 7 to take a guess\n";
         }
 
         public static string Body()
         {
-            return ($"The body is of a person around 5ft 10 with curly brown hair, slim build and shares many visual characteristics as Bryn... You check his wallet and find a driving license belonging to a 'Jason West'. There is a prominent thin line around his neck which looks to be the cause of his demise.\n");
+            return ($"The body is of a person around 5ft 10 with curly brown hair, slim build and shares many visual characteristics as Bryn... You check their wallet and find a driving license belonging to a 'Jason West'. There is a prominent thin line around their neck which looks to be the cause of their demise.\n");
         }
 
         public static string Fight()
@@ -242,7 +257,7 @@
 
         public static string BrynAttack()
         {
-            return $"Bryn picks up the fishing rod and gains super powers. He critially hits you and kills you instantly. Now step away from the keyboard before he kills someone else!\n";
+            return $"Bryn picks up the fishing rod and gains super powers. They critially hit you which kills you instantly. Now step away from the keyboard before they kill someone else!\n";
         }
 
         public static string ItemInfo()
@@ -284,22 +299,23 @@
             Build = build;
             Health = health;
         }
-
+        //setting a modify health method so that player's and Bryn's health can be modified depending on the outcome
         public int modifyHealth(int modifier)
         {
             Health += modifier;
             return Health;
         }
-
+        //setting abstract method as this will be accessed by each character to return a unique value
         public abstract string Greet();
     }
 
     public abstract class Items
     {
-
+        //using getters and setters for encapsulation
         public string Size { get; set; }
         public int Weight { get; set; }
         public string Description { get; set; }
+        //setting Damage as private so that players can't increase its value
         protected private int Damage { get; set; }
 
         protected Items(string size, int weight, string description, int damage)
@@ -309,7 +325,7 @@
             Description = description;
             Damage = damage;
         }
-
+        //setting abstract bool as this will be accessed by the items to return a true or false value if they contain blood or not
         public abstract bool containsBlood();
     }
 
@@ -317,6 +333,7 @@
     {
         public Player(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
+            //set these values as ambiguous as possible as these would not be used by the player. It was required to include these for the fight scene to be possible as Player and Bryn both inherit from the Person class.
             this.Name = "";
             this.Age = 0;
             this.Height = "Unknown";
@@ -329,6 +346,7 @@
             return "";
         }
 
+        //using a GetHealth() method for the fight scene between Bryn and the Player.
         public int GetHealth()
         {
             return Health;
@@ -337,6 +355,7 @@
 
     public class Bryn : Person
     {
+        //had to include this to allow {playerName} to be used or it would cause a compiling issue. Needs investigating and fixing.
         public object playerName;
 
         public Bryn(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
@@ -350,7 +369,7 @@
 
         public override string Greet()
         {
-
+                            //unable to call this during the greetings. Unsure why - to investigate.
             return $"Hello, {playerName}! The name's Bryn. It means 'hill' in Welsh.\n";
         }
 
@@ -393,7 +412,6 @@
             this.Health = 100;
         }
 
-        //returns type not value. why?
         public override string Greet()
         {
             return $"*does robot dance* {playerName}aaaaar! This is a nightmare of epic proportions is it not, my friend?!\n";
