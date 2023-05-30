@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace WhoseCoatIsThatJacket
 {
@@ -6,19 +7,20 @@ namespace WhoseCoatIsThatJacket
     {
         static void Main(string[] args)
         {
-            Bryn bryn = new Bryn("Bryn", 46, "6ft 1'", "Slim");
-            Gwen gwen = new Gwen("Gwen", 48, "5ft 6'", "Slim");
-            Smithy smithy = new Smithy("Smithy", 28, "5ft 8'", "Stocky");
-            FishingRod fr1 = new FishingRod("Large", 3, "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also coat/jacket hanging on the floor next to it which would fit a taller person");
-            InflatableLeek leek = new InflatableLeek("Small", 1, "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.");
-            Knife knife = new Knife("Small", 1, "An unused butter knife found on the table. Great for buttering your toast!");
+            Player player = new Player("", 0, "Unknown", "Unknown", 100);
+            Bryn bryn = new Bryn("Bryn", 46, "6ft 1'", "Slim", 100);
+            Gwen gwen = new Gwen("Gwen", 48, "5ft 6'", "Slim", 100);
+            Smithy smithy = new Smithy("Smithy", 28, "5ft 8'", "Stocky", 100); ;
+            FishingRod fr1 = new FishingRod("Large", 3, "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also coat/jacket hanging on the floor next to it which would fit a taller person", 100);
+            InflatableLeek leek = new InflatableLeek("Small", 1, "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.", 10);
+            Knife knife = new Knife("Small", 1, "An unused butter knife found on the table. Great for buttering your toast!", 1);
 
-
+            //Game introduction asking for the player's name
             Console.WriteLine("Siwmae! What is your name? \n");
             string playerName = Console.ReadLine();
             Console.WriteLine($"I'm gonna be honest with you here, {playerName}. This isn't a game with beautiful graphics, alright? You're going to need your imagination. You're about to be transported to a room in Cardiff with 3 weird people and a dead body. You need to find out what happened before the Rozzers get there or they'll arrest you (and ignore the others, how weeeeird...). Good luck! WEEEEEE");
 
-            //Adding a 2 second pause to seperate intro to game
+            //Adding a 2 second pause using a for loop to seperate intro to game
             string pause = " ";
 
             for (int count = 0; count < 10; count++)
@@ -30,31 +32,35 @@ namespace WhoseCoatIsThatJacket
             }
 
             Console.WriteLine("You are now in the room, and it is bloody freezing!\n");
-            //setting a custom mainMenu method to easily return the player to the main selection section
+            //using the custom mainMenu method to easily return the player to the main selection section
             Console.WriteLine(mainMenu());
 
-            //setting a for loop for the player to return to the main menu if exception is caught. Set the try limit to 1000 to allow for multiple exception handling.
+            //setting a for loop for the player to return to the main menu if exception is caught. Set the try limit to 1000 to allow for multiple uses of exception handling.
             for (int i = 0; i < 1000; i++)
             {
                 try
-                {
+                {   //as user input requires number it needs to be converted from string to int
                     int playerInput = Convert.ToInt32(Console.ReadLine());
+                    //setting multiple if statements to determine the path of the player
                     if (playerInput == 1)
-                    {
+                    {   //using custom methods of character.Greet for code efficiency
                         Console.WriteLine(bryn.Greet());
                         Console.WriteLine($"You notice Bryn is the tallest of the guests at around {bryn.Height}. They are roughly {bryn.Age} years old and of {bryn.Build} build. They are the only one not wearing a coat...\n");
+                        //returning mainMenu method to the console so players can keep track of where they are
                         Console.WriteLine(mainMenu());
                     }
 
                     if (playerInput == 2)
                     {
                         Console.WriteLine(gwen.Greet());
+                        //using the ToLower string method to account for players capitalising. If players uses capital letters the condition wouldn't be met as the criteria needs to be all lower case
                         string playerOmelette = (Console.ReadLine().ToLower());
                         if (playerOmelette == "yes")
                         {
                             Console.WriteLine("Aw, lovely. Here you go!\n");
 
                         }
+                        //setting else if statements to account for players choosing a different path
                         else if (playerOmelette == "no")
                         {
                             Console.WriteLine("Suit yourself, you ungrateful little toerag!\n");
@@ -130,8 +136,13 @@ namespace WhoseCoatIsThatJacket
                     }
                     else if (playerInput == 6)
                     {
-                        Console.WriteLine($"Like a predator to its prey, Bryn senses your fear and starts leathering you with the inflatable leek while yelling 'SURPRIIISE! SURPRIIISE!'. You can't escape and die the weirdest yet most brutal death. Now for the love of Pete, don't press anything else!\n");
-                        string rebelPlayer = Console.ReadLine();
+                        Console.WriteLine($"Like a predator to its prey, Bryn senses your fear and starts leathering you with the inflatable leek while yelling 'SURPRIIISE! SURPRIIISE!'.\n");
+                        Console.WriteLine("Do you want to fight or run?");
+                        string playerFightChoice = Console.ReadLine().ToLower();
+                        if (playerFightChoice == "fight")
+                        {
+
+                        }
                         Console.WriteLine(PlayerLose());
                         break;
                     }
@@ -182,6 +193,7 @@ namespace WhoseCoatIsThatJacket
             return "Okay, Who do you think is the murderer?\n";
         }
 
+        //setting a custom mainMenu method to easily return the player to the main selection section
         public static string mainMenu()
         {
             return "What would you like to do? Type: " +
@@ -215,127 +227,205 @@ namespace WhoseCoatIsThatJacket
 
         public static string PlayerWin()
         {
-            return "Aw that's a crackin guess, fair play. At the end of the day, when all's said and done... Tidy. YOU WIN!";
+            return "Aw that's a crackin' guess, fair play. At the end of the day, when all's said and done... Tidy. YOU WIN!";
         }
 
-        //Using abstract class as the Greet method will be manipulated by the Characters using Override
-        abstract class Person
+
+    }
+
+    //Using abstract class as the Greet method will be manipulated by the Characters using Override
+    public abstract class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Height { get; set; }
+        public string Build { get; set; }
+        protected private int Health { get; set; }
+
+        //protecting Person as these should not be writeable by the player
+        protected Person(string name, int age, string height, string build, int health)
         {
-            public string Name { get; set; }
-            public int Age { get; set; }
-            public string Height { get; set; }
-            public string Build { get; set; }
-
-            //protecting Person as these should not be writeable by the player
-            protected Person(string name, int age, string height, string build)
-            {
-                Name = name;
-                Age = age;
-                Height = height;
-                Build = build;
-            }
-            //using void type as method will not return a value
-
-
-            public abstract string Greet();
-
+            Name = name;
+            Age = age;
+            Height = height;
+            Build = build;
+            Health = health;
         }
 
-        abstract class Items
+        public int modifyHealth(int modifier)
         {
-
-            public string Size { get; set; }
-            public int Weight { get; set; }
-            public string Description { get; set; }
-
-            protected Items(string size, int weight, string description)
-            {
-                Size = size;
-                Weight = weight;
-                Description = description;
-            }
-
+            Health += modifier;
+            return Health;
         }
 
-        class Bryn : Person
+        public abstract string Greet();
+
+    }
+
+    abstract class Items
+    {
+
+        public string Size { get; set; }
+        public int Weight { get; set; }
+        public string Description { get; set; }
+        protected private int Damage { get; set; }
+
+        protected Items(string size, int weight, string description, int damage)
         {
-            public object playerName;
-
-
-            public Bryn(string Name, int Age, string Height, string Build) : base(Name, Age, Height, Build)
-            {
-                this.Name = "Bryn";
-                this.Age = 46;
-                this.Height = "6ft 1";
-                this.Build = "Slim";
-            }
-            
-            public override string Greet()
-            {
-                
-                return $"Hello, {playerName}! The name's Bryn. It means 'hill' in Welsh.\n";
-            }
+            Size = size;
+            Weight = weight;
+            Description = description;
+            Damage = damage;
         }
 
-        class Gwen : Person
+    }
+
+    public class Player : Person
+    {
+        public Player(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
-            private object playerName;
-
-            public Gwen(string Name, int Age, string Height, string Build) : base(Name, Age, Height, Build)
-            {
-
-            }
-
-            public override string Greet()
-            {
-                return $"Hello, {playerName}? Can I make you an omelette?\n";
-            }
+            this.Name = "";
+            this.Age = 0;
+            this.Height = "Unknown";
+            this.Build = "Unknown";
+            this.Health = 100;
         }
 
-        class Smithy : Person
+        public override string Greet()
         {
-            private object playerName;
-
-            public Smithy(string Name, int Age, string Height, string Build) : base(Name, Age, Height, Build)
-            {
-
-            }
-
-            //returns type not value. why?
-            public override string Greet()
-            {
-                return $"*does robot dance* {playerName}aaaaar! This is a nightmare of epic proportions is it not, my friend?!\n";
-            }
+            return "";
         }
 
-        class FishingRod : Items
+        public int GetHealth()
         {
-            public FishingRod(string Size, int Weight, string Description) : base(Size, Weight, Description)
-            {
-                Size = "Large";
-                Weight = 3;
-                Description = "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also a ripped coat/jacket hanging on the floor next to it which looks like it would fit a taller person\n";
-            }
+            return Health;
         }
 
-        class InflatableLeek : Items
+        public void Attack(Bryn bryn)
         {
-            public InflatableLeek(string Size, int Weight, string Description) : base(Size, Weight, Description)
+            Console.WriteLine("What is your weapon of choice?" +
+                "\n1. The fishing rod" +
+                "\n2. The inflateable leek" +
+                "\n3. The knife");
+            int weaponChoice = Convert.ToInt32(Console.ReadLine());
+
+            if (weaponChoice == 1)
             {
-                Size = "Small";
-                Weight = 1;
-                Description = "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.\n";
+                bryn.modifyHealth(-100);
+                Console.WriteLine($"Excellent choice. You pick up the fishing rod and hit Bryn. This is Bryn's kryptonite! Bryn now has {bryn.GetHealth()} health");
+            }
+            else if (weaponChoice == 2)
+            {
+                bryn.modifyHealth(-10);
+                Console.WriteLine($"...Really? Bryn takes the inflateable leek to the face like a champ. Bryn now has {bryn.GetHealth()} health. {bryn.Attack}");
+            }
+            else if (weaponChoice == 3)
+            {
+                Console.WriteLine($"Ah yes, you'd think that was a wise move wouldn't you? I bet you didn't read the description! The knife does next to no damage, but leaves a bit of butter across his cheek. Bryn now has {bryn.GetHealth()} health. He is enraged by the butter! {bryn.Attack}");
             }
         }
+    }
 
-        class Knife : Items
+    public class Bryn : Person
+    {
+        public object playerName;
+
+        public Bryn(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
-            public Knife(string Size, int Weight, string Description) : base(Size, Weight, Description)
-            {
-                Size = "Small";
-                Weight = 1;
-                Description = "An unused butter knife found on the table. Great for buttering your toast!\n";
-            }
+            this.Name = "Bryn";
+            this.Age = 46;
+            this.Height = "6ft 1";
+            this.Build = "Slim";
+            this.Health = 100;
+        }
+
+        public override string Greet()
+        {
+
+            return $"Hello, {playerName}! The name's Bryn. It means 'hill' in Welsh.\n";
+        }
+
+        public void Attack(Player player)
+        {
+            Console.WriteLine($"Bryn picks up the fishing rod and gains super powers. He critially hits you and you now have {player.modifyHealth(-100)}");
+        }
+
+        public int GetHealth()
+        {
+            return Health;
+        }
+    }
+
+
+    class Gwen : Person
+    {
+        private object playerName;
+
+        public Gwen(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
+        {
+            this.Name = "Gwen";
+            this.Age = 48;
+            this.Height = "5ft 6";
+            this.Build = "Slim";
+            this.Health = 100;
+        }
+
+        public override string Greet()
+        {
+            return $"Hello, {playerName}? Can I make you an omelette?\n";
+        }
+
+    }
+    class Smithy : Person
+    {
+        private object playerName;
+
+        public Smithy(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
+        {
+            this.Name = "Smithy";
+            this.Age = 28;
+            this.Height = "5ft 8";
+            this.Build = "Stocky";
+            this.Health = 100;
+        }
+
+        //returns type not value. why?
+        public override string Greet()
+        {
+            return $"*does robot dance* {playerName}aaaaar! This is a nightmare of epic proportions is it not, my friend?!\n";
+        }
+    }
+
+    class FishingRod : Items
+    {
+        public FishingRod(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
+        {
+            this.Size = "Large";
+            this.Weight = 3;
+            this.Description = "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also a ripped coat/jacket hanging on the floor next to it which looks like it would fit a taller person\n";
+            this.Damage = 100;
+        }
+    }
+
+    class InflatableLeek : Items
+    {
+        public InflatableLeek(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
+        {
+            this.Size = "Small";
+            this.Weight = 1;
+            this.Description = "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.\n";
+            this.Damage = 10;
+        }
+    }
+
+    class Knife : Items
+    {
+        public Knife(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
+        {
+            this.Size = "Small";
+            this.Weight = 1;
+            this.Description = "An unused butter knife found on the table. Great for buttering your toast!\n";
+            this.Damage = 1;
         }
     }
 }
