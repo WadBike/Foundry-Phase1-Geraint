@@ -1,8 +1,4 @@
-﻿using System;
-using System.Numerics;
-using System.Threading.Tasks;
-
-namespace WhoseCoatIsThatJacket
+﻿namespace WhoseCoatIsThatJacket
 {
     internal class Program
     {
@@ -69,7 +65,7 @@ namespace WhoseCoatIsThatJacket
                         Console.WriteLine($"Gwen is the shortest of the guests at around {gwen.Height}. They are roughly {gwen.Age} years old and of {gwen.Build} build.\n\n");
                         Console.WriteLine(mainMenu());
                     }
-
+                    
                     else if (playerInput == 3)
                     {
                         Console.WriteLine(smithy.Greet());
@@ -276,6 +272,7 @@ namespace WhoseCoatIsThatJacket
         public int Age { get; set; }
         public string Height { get; set; }
         public string Build { get; set; }
+        //encapsulating the Health attribute as private so the player can't modify this and give them more health
         protected private int Health { get; set; }
 
         //protecting Person as these should not be writeable by the player
@@ -297,7 +294,7 @@ namespace WhoseCoatIsThatJacket
         public abstract string Greet();
     }
 
-    abstract class Items
+    public abstract class Items
     {
 
         public string Size { get; set; }
@@ -313,6 +310,7 @@ namespace WhoseCoatIsThatJacket
             Damage = damage;
         }
 
+        public abstract bool containsBlood();
     }
 
     public class Player : Person
@@ -334,11 +332,6 @@ namespace WhoseCoatIsThatJacket
         public int GetHealth()
         {
             return Health;
-        }
-
-        internal string Attack()
-        {
-            throw new NotImplementedException();
         }
     }
 
@@ -368,7 +361,7 @@ namespace WhoseCoatIsThatJacket
     }
 
 
-    class Gwen : Person
+    public class Gwen : Person
     {
         private object playerName;
 
@@ -387,7 +380,7 @@ namespace WhoseCoatIsThatJacket
         }
 
     }
-    class Smithy : Person
+    public class Smithy : Person
     {
         private object playerName;
 
@@ -407,7 +400,7 @@ namespace WhoseCoatIsThatJacket
         }
     }
 
-    class FishingRod : Items
+    public class FishingRod : Items
     {
         public FishingRod(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
         {
@@ -416,9 +409,14 @@ namespace WhoseCoatIsThatJacket
             this.Description = "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also a ripped coat/jacket hanging on the floor next to it which looks like it would fit a taller person\n";
             this.Damage = 100;
         }
+
+        public override bool containsBlood()
+        {
+            return true;
+        }
     }
 
-    class InflatableLeek : Items
+    public class InflatableLeek : Items
     {
         public InflatableLeek(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
         {
@@ -427,9 +425,14 @@ namespace WhoseCoatIsThatJacket
             this.Description = "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.\n";
             this.Damage = 10;
         }
+
+        public override bool containsBlood()
+        {
+            return false;
+        }
     }
 
-    class Knife : Items
+    public class Knife : Items
     {
         public Knife(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
         {
@@ -437,6 +440,11 @@ namespace WhoseCoatIsThatJacket
             this.Weight = 1;
             this.Description = "An unused butter knife found on the table. Great for buttering your toast!\n";
             this.Damage = 1;
+        }
+
+        public override bool containsBlood()
+        {
+            return false;
         }
     }
 }

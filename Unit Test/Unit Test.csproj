@@ -23,4 +23,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Whose Coat Is That Jacket\Whose Coat Is That Jacket\Whose Coat Is That Jacket.csproj" />
+  </ItemGroup>
 </Project>
