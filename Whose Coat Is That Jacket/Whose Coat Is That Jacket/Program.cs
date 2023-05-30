@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace WhoseCoatIsThatJacket
@@ -138,11 +139,35 @@ namespace WhoseCoatIsThatJacket
                     {
                         Console.WriteLine($"Like a predator to its prey, Bryn senses your fear and starts leathering you with the inflatable leek while yelling 'SURPRIIISE! SURPRIIISE!'.\n");
                         Console.WriteLine("Do you want to fight or run?");
+                        //need to add a try catch statement here to account for invalid user input (e.g integers or different string)
                         string playerFightChoice = Console.ReadLine().ToLower();
                         if (playerFightChoice == "fight")
                         {
+                            Console.WriteLine(Fight());
+                            int weaponChoice = Convert.ToInt32(Console.ReadLine());
 
+                            if (weaponChoice == 1)
+                            {
+                                bryn.modifyHealth(-100);
+                                Console.WriteLine($"Excellent choice. You pick up the fishing rod and hit Bryn. This is Bryn's kryptonite! Bryn now has {bryn.GetHealth()} health");
+                                Console.WriteLine(PlayerWin());
+                            }
+                            else if (weaponChoice == 2)
+                            {
+                                bryn.modifyHealth(-10);
+                                Console.WriteLine($"...Really? \n\n\nYou manage to grab the inflatable leek from Bryn and start smacking him. Bryn takes the inflateable leek to the face like a champ. Bryn now has {bryn.GetHealth()} health.\n");
+                                Console.WriteLine(BrynAttack());
+                                string rebelPlayer = Console.ReadLine();
+                                Console.WriteLine(PlayerLose());
+                                break;
+
+                            }
+                            else if (weaponChoice == 3)
+                            {
+                                Console.WriteLine($"Ah yes, you'd think that was a wise move wouldn't you? I bet you didn't read the description! The knife does next to no damage, but leaves a bit of butter across his cheek. Bryn now has {bryn.GetHealth()} health. He is enraged by the butter! {BrynAttack()}");
+                            }
                         }
+                        else
                         Console.WriteLine(PlayerLose());
                         break;
                     }
@@ -211,13 +236,26 @@ namespace WhoseCoatIsThatJacket
             return ($"The body is of a person around 5ft 10 with curly brown hair, slim build and shares many visual characteristics as Bryn... You check his wallet and find a driving license belonging to a 'Jason West'. There is a prominent thin line around his neck which looks to be the cause of his demise.\n");
         }
 
+        public static string Fight()
+        {
+            return("What is your weapon of choice?" +
+            "\n1. The fishing rod" +
+            "\n2. The inflateable leek" +
+            "\n3. The knife\n");
+        }
+
+        public static string BrynAttack()
+        {
+            return $"Bryn picks up the fishing rod and gains super powers. He critially hits you and kills you instantly. Now step away from the keyboard before he kills someone else!\n";
+        }
+
         public static string ItemInfo()
         {
             return "Which item would you like more information on? " +
-                                    "\n1. The fishing rod" +
-                                    "\n2. The inflatable leek" +
-                                    "\n3. The knife" +
-                                    "\n4. Return to menu";
+            "\n1. The fishing rod" +
+            "\n2. The inflatable leek" +
+            "\n3. The knife" +
+            "\n4. Return to menu";
         }
 
         public static string PlayerLose()
@@ -229,8 +267,6 @@ namespace WhoseCoatIsThatJacket
         {
             return "Aw that's a crackin' guess, fair play. At the end of the day, when all's said and done... Tidy. YOU WIN!";
         }
-
-
     }
 
     //Using abstract class as the Greet method will be manipulated by the Characters using Override
@@ -301,28 +337,9 @@ namespace WhoseCoatIsThatJacket
             return Health;
         }
 
-        public void Attack(Bryn bryn)
+        internal string Attack()
         {
-            Console.WriteLine("What is your weapon of choice?" +
-                "\n1. The fishing rod" +
-                "\n2. The inflateable leek" +
-                "\n3. The knife");
-            int weaponChoice = Convert.ToInt32(Console.ReadLine());
-
-            if (weaponChoice == 1)
-            {
-                bryn.modifyHealth(-100);
-                Console.WriteLine($"Excellent choice. You pick up the fishing rod and hit Bryn. This is Bryn's kryptonite! Bryn now has {bryn.GetHealth()} health");
-            }
-            else if (weaponChoice == 2)
-            {
-                bryn.modifyHealth(-10);
-                Console.WriteLine($"...Really? Bryn takes the inflateable leek to the face like a champ. Bryn now has {bryn.GetHealth()} health. {bryn.Attack}");
-            }
-            else if (weaponChoice == 3)
-            {
-                Console.WriteLine($"Ah yes, you'd think that was a wise move wouldn't you? I bet you didn't read the description! The knife does next to no damage, but leaves a bit of butter across his cheek. Bryn now has {bryn.GetHealth()} health. He is enraged by the butter! {bryn.Attack}");
-            }
+            throw new NotImplementedException();
         }
     }
 
@@ -343,11 +360,6 @@ namespace WhoseCoatIsThatJacket
         {
 
             return $"Hello, {playerName}! The name's Bryn. It means 'hill' in Welsh.\n";
-        }
-
-        public void Attack(Player player)
-        {
-            Console.WriteLine($"Bryn picks up the fishing rod and gains super powers. He critially hits you and you now have {player.modifyHealth(-100)}");
         }
 
         public int GetHealth()
