@@ -5,10 +5,10 @@
         static void Main(string[] args)
         {
             //setting players and items so that they can be called throughout the game
-            Player player = new Player("", 0, "Unknown", "Unknown", 100);
+            Player player = new Player(Console.ReadLine(), 0, "Unknown", "Unknown", 100) ;
             Bryn bryn = new Bryn("Bryn", 46, "6ft 1'", "Slim", 100);
             Gwen gwen = new Gwen("Gwen", 48, "5ft 6'", "Slim", 100);
-            Smithy smithy = new Smithy("Smithy", 28, "5ft 8'", "Stocky", 100); ;
+            Smithy smithy = new Smithy("Smithy", 28, "5ft 8'", "Stocky", 100);
             FishingRod fr1 = new FishingRod("Large", 3, "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also coat/jacket hanging on the floor next to it which would fit a taller person", 100);
             InflatableLeek leek = new InflatableLeek("Small", 1, "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.", 10);
             Knife knife = new Knife("Small", 1, "An unused butter knife found on the table. Great for buttering your toast!", 1);
@@ -17,10 +17,10 @@
 
             //Game introduction asking for the player's name
             Console.WriteLine("Siwmae! What is your name? \n");
-            string playerName = Console.ReadLine();
-            Console.WriteLine($"I'm gonna be honest with you here, {playerName}. This isn't a game with beautiful graphics, alright? You're going to need your imagination. You're about to be transported to a room in Cardiff with 3 weird people and a dead body. You need to find out what happened before the Rozzers get there or they'll arrest you (and ignore the others, how weeeeird...). Good luck! WEEEEEE");
+            player.Name = Console.ReadLine();
+            Console.WriteLine($"I'm gonna be honest with you here, {player.Name}. This isn't a game with beautiful graphics, alright? You're going to need your imagination. You're about to be transported to a room in Cardiff with 3 weird people and a dead body. You need to find out what happened before the Rozzers get there or they'll arrest you (and ignore the others, how weeeeird...). Good luck! WEEEEEE");
 
-            //Adding a 2 second pause using a for loop to seperate intro to game
+            //Adding a 2 second pause and using a for loop to create 10 new empty lines to seperate intro to game
             string pause = " ";
 
             for (int count = 0; count < 10; count++)
@@ -288,7 +288,7 @@
         public string Height { get; set; }
         public string Build { get; set; }
         //encapsulating the Health attribute as private so the player can't modify this and give them more health
-        protected private int Health { get; set; }
+        private int Health { get; set; }
 
         //protecting Person as these should not be writeable by the player
         protected Person(string name, int age, string height, string build, int health)
@@ -334,11 +334,16 @@
         public Player(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
             //set these values as ambiguous as possible as these would not be used by the player. It was required to include these for the fight scene to be possible as Player and Bryn both inherit from the Person class.
-            this.Name = "";
+            this.Name = Console.ReadLine();
             this.Age = 0;
             this.Height = "Unknown";
             this.Build = "Unknown";
             this.Health = 100;
+        }
+
+        public Player()
+        {
+            this.Name = "Test";
         }
 
         public override string Greet()
@@ -351,13 +356,15 @@
         {
             return Health;
         }
+
+        public int modifyHealth()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Bryn : Person
-    {
-        //had to include this to allow {playerName} to be used or it would cause a compiling issue. Needs investigating and fixing.
-        public object playerName;
-
+    {    
         public Bryn(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
             this.Name = "Bryn";
@@ -370,7 +377,7 @@
         public override string Greet()
         {
                             //unable to call this during the greetings. Unsure why - to investigate.
-            return $"Hello, {playerName}! The name's Bryn. It means 'hill' in Welsh.\n";
+            return $"Hello, {player.Nam e}! The name's Bryn. It means 'hill' in Welsh.\n";
         }
 
         public int GetHealth()
@@ -382,8 +389,6 @@
 
     public class Gwen : Person
     {
-        private object playerName;
-
         public Gwen(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
             this.Name = "Gwen";
@@ -395,14 +400,12 @@
 
         public override string Greet()
         {
-            return $"Hello, {playerName}? Can I make you an omelette?\n";
+            return $"Hello, {player.Name}? Can I make you an omelette?\n";
         }
 
     }
     public class Smithy : Person
     {
-        private object playerName;
-
         public Smithy(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
             this.Name = "Smithy";
@@ -414,7 +417,7 @@
 
         public override string Greet()
         {
-            return $"*does robot dance* {playerName}aaaaar! This is a nightmare of epic proportions is it not, my friend?!\n";
+            return $"*does robot dance* {player.name}aaaaar! This is a nightmare of epic proportions is it not, my friend?!\n";
         }
     }
 

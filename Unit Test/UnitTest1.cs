@@ -4,11 +4,13 @@ namespace Unit_Test;
 
 public class UnitTest1
 {
-    [Fact]
-    public void Test_GetHealth()
-    {
-        Bryn bryn = new Bryn();
+    Knife knife = new Knife("Small", 1, "An unused butter knife found on the table. Great for buttering your toast!", 1);
 
-        string result = bryn.GetHealth(100);
+    [Fact]
+
+    public bool containsBlood()
+    {
+        Assert.True(knife.containsBlood());
+        return true;
     }
 }

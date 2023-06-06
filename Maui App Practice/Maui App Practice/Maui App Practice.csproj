@@ -54,13 +54,14 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\bank-7515368_960_720.webp" />
 	  <None Remove="Resources\Images\" />
+	  <None Remove="Resources\Images\Unknown.jpeg" />
+	  <None Remove="Resources\Images\png-transparent-green-leek-onion-plant-vegetable.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Resources\Images\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <BundleResource Include="..\..\..\..\Pictures\bank.jpg">
-	    <Link>Resources\Images\bank.jpg</Link>
-	  </BundleResource>
+	  <BundleResource Include="Resources\Images\unknown.jpeg" />
+	  <BundleResource Include="Resources\Images\png-transparent-green-leek-onion-plant-vegetable.png" />
 	</ItemGroup>
 </Project>

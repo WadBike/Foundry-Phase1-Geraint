@@ -10,53 +10,35 @@
             VerticalOptions="Center">
 
             <Image
-                Source="bank.jpg"
+                Source="png-transparent-green-leek-onion-plant-vegetable.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 WidthRequest="200"
                 HorizontalOptions="Center" />
 
             <Label
-                Text="Boyd's Lank"
+                Text="Whose Coat is that Jacket?"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                FontSize="75"
                 HorizontalOptions="Center" />
 
             <Label
-                Text="Welcome to Boyd's Lank."
+                Text="Alright butt how's it going alright?"
                 SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to Boyd's Lank"
-                FontSize="18"
+                SemanticProperties.Description="Game intro"
+                FontSize="30"
                 HorizontalOptions="Center" />
-
-            <Entry
-                x:Name="usernameEntry"
-                Placeholder="Username"
-                MaximumWidthRequest=" 200" />
-
-             <Entry
-                x:Name="passwordEntry"
-                Placeholder="Password"
-                IsPassword="True"
-                MaximumWidthRequest=" 200" />
 
             <Button
-                x:Name="CounterBtn"
-                Text="Log In"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                x:Name="playGame"
+                Text="Play game!"
                 HorizontalOptions="Center" />
 
-            <Label
-                x:Name="humanVerification"
-                Text="Check the box below to confirm you're human. If you're a robot - Beep boop."
-                FontSize="12"
-                HorizontalOptions="Center"/>
-
-            <CheckBox
-                x:Name="validation"
-                CheckedChanged="OnCheckBoxCheckedChanged"
-                />
+            <Button
+                x:Name="exitGame"
+                Text="Ta-ra!"
+                SemanticProperties.Hint="Counts the number of times you click"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>
