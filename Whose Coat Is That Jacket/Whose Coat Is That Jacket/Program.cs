@@ -44,7 +44,7 @@
                     //setting multiple if statements to determine the path of the player
                     if (playerInput == 1)
                     {   //using custom methods of character.Greet for code efficiency
-                        Console.WriteLine(bryn.Greet());
+                        //Console.WriteLine(bryn.Greet());
                         Console.WriteLine($"You notice Bryn is the tallest of the guests at around {bryn.Height}. They are roughly {bryn.Age} years old and of {bryn.Build} build. They are the only one not wearing a coat...\n");
                         //returning mainMenu method to the console so players can keep track of where they are
                         Console.WriteLine(mainMenu());
@@ -52,7 +52,7 @@
 
                     if (playerInput == 2)
                     {
-                        Console.WriteLine(gwen.Greet());
+                        //Console.WriteLine(gwen.Greet());
                         //using the ToLower string method to account for players capitalising. If players uses capital letters the condition wouldn't be met as the criteria needs to be all lower case
                         string playerOmelette = (Console.ReadLine().ToLower());
                         if (playerOmelette == "yes")
@@ -71,7 +71,7 @@
                     
                     else if (playerInput == 3)
                     {
-                        Console.WriteLine(smithy.Greet());
+                        //Console.WriteLine(smithy.Greet());
                         Console.WriteLine($"Smithy doesn't seem to be from around here. They are the youngest of the guests at around {smithy.Age}. They are roughly {smithy.Height} and of {smithy.Build} build.\n\n");
                         Console.WriteLine(mainMenu());
                     }
@@ -288,7 +288,7 @@
         public string Height { get; set; }
         public string Build { get; set; }
         //encapsulating the Health attribute as private so the player can't modify this and give them more health
-        private int Health { get; set; }
+        protected int Health { get; set; }
 
         //protecting Person as these should not be writeable by the player
         protected Person(string name, int age, string height, string build, int health)
@@ -306,7 +306,7 @@
             return Health;
         }
         //setting abstract method as this will be accessed by each character to return a unique value
-        public abstract string Greet();
+       // public abstract string Greet();
     }
 
     public abstract class Items
@@ -327,6 +327,11 @@
         }
         //setting abstract bool as this will be accessed by the items to return a true or false value if they contain blood or not
         public abstract bool containsBlood();
+
+        public bool containsBlood(bool v)
+        {
+            return true;
+        }
     }
 
     public class Player : Person
@@ -341,15 +346,10 @@
             this.Health = 100;
         }
 
-        public Player()
-        {
-            this.Name = "Test";
-        }
-
-        public override string Greet()
+        /*public override string Greet()
         {
             return "";
-        }
+        }*/
 
         //using a GetHealth() method for the fight scene between Bryn and the Player.
         public int GetHealth()
@@ -374,15 +374,20 @@
             this.Health = 100;
         }
 
-        public override string Greet()
+       /* public override string Greet()
         {
                             //unable to call this during the greetings. Unsure why - to investigate.
-            return $"Hello, {player.Nam e}! The name's Bryn. It means 'hill' in Welsh.\n";
-        }
+            return $"Hello, {player.Name}! The name's Bryn. It means 'hill' in Welsh.\n";
+        }*/
 
         public int GetHealth()
         {
             return Health;
+        }
+
+        public int modifyHealth(int v1, int v2)
+        {
+            return Health - 20;
         }
     }
 
@@ -398,10 +403,10 @@
             this.Health = 100;
         }
 
-        public override string Greet()
+       /* public override string Greet()
         {
             return $"Hello, {player.Name}? Can I make you an omelette?\n";
-        }
+        }*/
 
     }
     public class Smithy : Person
@@ -415,10 +420,10 @@
             this.Health = 100;
         }
 
-        public override string Greet()
+        /*public override string Greet()
         {
             return $"*does robot dance* {player.name}aaaaar! This is a nightmare of epic proportions is it not, my friend?!\n";
-        }
+        }*/
     }
 
     public class FishingRod : Items
