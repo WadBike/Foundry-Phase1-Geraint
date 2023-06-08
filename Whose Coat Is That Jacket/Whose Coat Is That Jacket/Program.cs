@@ -1,4 +1,6 @@
-﻿namespace WhoseCoatIsThatJacket
+﻿using Figgle;
+
+namespace WhoseCoatIsThatJacket
 {
     internal class Program
     {
@@ -13,8 +15,8 @@
             InflatableLeek leek = new InflatableLeek("Small", 1, "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.", 10);
             Knife knife = new Knife("Small", 1, "An unused butter knife found on the table. Great for buttering your toast!", 1);
 
-            //will include asci art to make it more engaging. May look into changing text colour etc too if I have time.
-
+            Console.WriteLine(FiggleFonts.Poison.Render("Whose Coat Is That Jacket?!"));
+        
             //Game introduction asking for the player's name
             Console.WriteLine("Siwmae! What is your name? \n");
             player.Name = Console.ReadLine();
