@@ -44,7 +44,7 @@
                     //setting multiple if statements to determine the path of the player
                     if (playerInput == 1)
                     {   //using custom methods of character.Greet for code efficiency
-                        //Console.WriteLine(bryn.Greet());
+                        Console.WriteLine(bryn.Greet());
                         Console.WriteLine($"You notice Bryn is the tallest of the guests at around {bryn.Height}. They are roughly {bryn.Age} years old and of {bryn.Build} build. They are the only one not wearing a coat...\n");
                         //returning mainMenu method to the console so players can keep track of where they are
                         Console.WriteLine(mainMenu());
@@ -52,7 +52,7 @@
 
                     if (playerInput == 2)
                     {
-                        //Console.WriteLine(gwen.Greet());
+                        Console.WriteLine(gwen.Greet());
                         //using the ToLower string method to account for players capitalising. If players uses capital letters the condition wouldn't be met as the criteria needs to be all lower case
                         string playerOmelette = (Console.ReadLine().ToLower());
                         if (playerOmelette == "yes")
@@ -71,7 +71,7 @@
                     
                     else if (playerInput == 3)
                     {
-                        //Console.WriteLine(smithy.Greet());
+                        Console.WriteLine(smithy.Greet());
                         Console.WriteLine($"Smithy doesn't seem to be from around here. They are the youngest of the guests at around {smithy.Age}. They are roughly {smithy.Height} and of {smithy.Build} build.\n\n");
                         Console.WriteLine(mainMenu());
                     }
@@ -81,7 +81,7 @@
                         Console.WriteLine(Body());
                         Console.WriteLine(mainMenu());
                     }
-
+                    
                     else if (playerInput == 5)
                     {
                         Console.WriteLine("When looking around the room you find various items - a fishing rod, an inflatable leek and a knife. Do you want to investigate further? If you want to return to the menu, type menu to go back to the main menu.\n");
@@ -146,7 +146,7 @@
                         {
                             Console.WriteLine(Fight());
                             int weaponChoice = Convert.ToInt32(Console.ReadLine());
-
+                            
                             if (weaponChoice == 1)
                             {   //calling the modify health method for Bryn and returning how much health they have left after each choice
                                 bryn.modifyHealth(-100);
@@ -173,7 +173,7 @@
                             Console.WriteLine(PlayerLose());
                             break;
                     }
-
+                    
                     else if (playerInput == 7)
                     {
                         for (int g = 0; i < 1000; i++)
@@ -223,13 +223,16 @@
                 }
             }
         }
-        //setting these methods as a static string as it is not used anywhere else
+        ///setting these methods as a static string as it is not used anywhere else
         public static string Guess()
         {
             return "Okay, Who do you think is the murderer?\n";
         }
 
-        //setting a custom mainMenu method to easily return the player to the main selection section
+        /// <summary>
+        /// setting a custom mainMenu method to easily return the player to the main selection section
+        /// </summary>
+        /// <returns></returns>
         public static string mainMenu()
         {
             return "What would you like to do? Type: " +
@@ -273,7 +276,7 @@
         {
             return "OH! Peidiwch a chyffwrdd a'r peiriannau! You've lost the game, now sling yer hook or I'll break your face!";
         }
-
+        
         public static string PlayerWin()
         {
             return "Aw that's a crackin' guess, fair play. At the end of the day, when all's said and done... Tidy. YOU WIN!";
@@ -288,10 +291,9 @@
         public string Height { get; set; }
         public string Build { get; set; }
         //encapsulating the Health attribute as private so the player can't modify this and give them more health
-        protected int Health { get; set; }
+        protected int Health { get; private set; }
 
-        //protecting Person as these should not be writeable by the player
-        protected Person(string name, int age, string height, string build, int health)
+        public Person(string name, int age, string height, string build, int health)
         {
             Name = name;
             Age = age;
@@ -299,24 +301,33 @@
             Build = build;
             Health = health;
         }
-        //setting a modify health method so that player's and Bryn's health can be modified depending on the outcome
+        /// <summary>
+        /// setting a modify health method so that player's and Bryn's health can be modified depending on the outcome
+        /// </summary>
+        /// <param name="modifier"></param>
+        /// <returns></returns>
         public int modifyHealth(int modifier)
         {
             Health += modifier;
             return Health;
         }
-        //setting abstract method as this will be accessed by each character to return a unique value
-       // public abstract string Greet();
+        /// <summary>
+        /// setting abstract method as this will be accessed by each character to return a unique value
+        /// </summary>
+        /// <returns></returns>
+        public abstract string Greet();
     }
 
     public abstract class Items
     {
-        //using getters and setters for encapsulation
+        /// <summary>
+        /// using getters and setters for encapsulation
+        /// </summary>
         public string Size { get; set; }
         public int Weight { get; set; }
         public string Description { get; set; }
         //setting Damage as private so that players can't increase its value
-        protected private int Damage { get; set; }
+        protected private int Damage { get; private set; }
 
         protected Items(string size, int weight, string description, int damage)
         {
@@ -327,31 +338,24 @@
         }
         //setting abstract bool as this will be accessed by the items to return a true or false value if they contain blood or not
         public abstract bool containsBlood();
-
-        public bool containsBlood(bool v)
-        {
-            return true;
-        }
     }
 
     public class Player : Person
     {
         public Player(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
-            //set these values as ambiguous as possible as these would not be used by the player. It was required to include these for the fight scene to be possible as Player and Bryn both inherit from the Person class.
-            this.Name = Console.ReadLine();
-            this.Age = 0;
-            this.Height = "Unknown";
-            this.Build = "Unknown";
-            this.Health = 100;
+         
         }
 
-        /*public override string Greet()
+        public override string Greet()
         {
             return "";
-        }*/
+        }
 
-        //using a GetHealth() method for the fight scene between Bryn and the Player.
+        /// <summary>
+        /// using a GetHealth() method for the fight scene between Bryn and the Player.
+        /// </summary>
+        /// <returns></returns>
         public int GetHealth()
         {
             return Health;
@@ -364,76 +368,68 @@
     }
 
     public class Bryn : Person
-    {    
+    {
         public Bryn(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
-            this.Name = "Bryn";
-            this.Age = 46;
-            this.Height = "6ft 1";
-            this.Build = "Slim";
-            this.Health = 100;
+
         }
 
-       /* public override string Greet()
+        public override string Greet()
         {
                             //unable to call this during the greetings. Unsure why - to investigate.
-            return $"Hello, {player.Name}! The name's Bryn. It means 'hill' in Welsh.\n";
-        }*/
-
+            return $"Hello! The name's Bryn. It means 'hill' in Welsh.\n";
+        }
+        /// <summary>
+        /// The GetHealth() method is used to return the value of Bryn's health during the fight scene between them and the player
+        /// </summary>
+        /// <returns></returns>
         public int GetHealth()
         {
             return Health;
         }
-
+        /// <summary>
+        /// This method was added for testing wether the modifyHealth() method works as intended. It takes the value of Bryn's health (100) and taking 20 damage, returning 80 health
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         public int modifyHealth(int v1, int v2)
         {
             return Health - 20;
         }
     }
 
-
     public class Gwen : Person
     {
         public Gwen(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
-            this.Name = "Gwen";
-            this.Age = 48;
-            this.Height = "5ft 6";
-            this.Build = "Slim";
-            this.Health = 100;
+
         }
 
-       /* public override string Greet()
+        public override string Greet()
         {
-            return $"Hello, {player.Name}? Can I make you an omelette?\n";
-        }*/
+            return $"Hello! Can I make you an omelette?\n";
+        }
 
     }
     public class Smithy : Person
     {
         public Smithy(string Name, int Age, string Height, string Build, int Health) : base(Name, Age, Height, Build, Health)
         {
-            this.Name = "Smithy";
-            this.Age = 28;
-            this.Height = "5ft 8";
-            this.Build = "Stocky";
-            this.Health = 100;
+
         }
 
-        /*public override string Greet()
+        public override string Greet()
         {
-            return $"*does robot dance* {player.name}aaaaar! This is a nightmare of epic proportions is it not, my friend?!\n";
-        }*/
+            return $"*does robot dance* Alright?! This is a nightmare of epic proportions is it not, my friend?!\n";
+        }
     }
 
     public class FishingRod : Items
     {
         public FishingRod(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
         {
-            this.Size = "Large";
-            this.Weight = 3;
-            this.Description = "A standard fishing rod. You notice the fishing line is missing and blood splatters on the handle. There is also a ripped coat/jacket hanging on the floor next to it which looks like it would fit a taller person\n";
-            this.Damage = 100;
+
         }
 
         public override bool containsBlood()
@@ -446,10 +442,7 @@
     {
         public InflatableLeek(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
         {
-            this.Size = "Small";
-            this.Weight = 1;
-            this.Description = "It's an inflateable leek... The kind of thing you see Welsh people holding during the Rugby for some inexplicable reason.\n";
-            this.Damage = 10;
+
         }
 
         public override bool containsBlood()
@@ -462,10 +455,7 @@
     {
         public Knife(string Size, int Weight, string Description, int Damage) : base(Size, Weight, Description, Damage)
         {
-            this.Size = "Small";
-            this.Weight = 1;
-            this.Description = "An unused butter knife found on the table. Great for buttering your toast!\n";
-            this.Damage = 1;
+
         }
 
         public override bool containsBlood()
