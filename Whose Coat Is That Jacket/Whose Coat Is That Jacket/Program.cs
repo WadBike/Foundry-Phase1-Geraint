@@ -288,10 +288,10 @@ namespace WhoseCoatIsThatJacket
     //Using abstract class as the Greet method will be manipulated by the Characters using Override
     public abstract class Person
     {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string Height { get; set; }
-        public string Build { get; set; }
+        protected string Name { get; private set; }
+        protected int Age { get; private set; }
+        protected string Height { get; private set; }
+        protected string Build { get; private set; }
         //encapsulating the Health attribute as private so the player can't modify this and give them more health
         protected int Health { get; private set; }
 
@@ -325,9 +325,9 @@ namespace WhoseCoatIsThatJacket
         /// <summary>
         /// using getters and setters for encapsulation
         /// </summary>
-        public string Size { get; set; }
-        public int Weight { get; set; }
-        public string Description { get; set; }
+        protected string Size { get; private set; }
+        protected int Weight { get; private set; }
+        public string Description { get; private set; }
         //setting Damage as private so that players can't increase its value
         protected private int Damage { get; private set; }
 
