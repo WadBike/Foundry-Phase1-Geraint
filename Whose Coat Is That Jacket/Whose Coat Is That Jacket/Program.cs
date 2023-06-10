@@ -395,9 +395,9 @@ namespace WhoseCoatIsThatJacket
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <returns></returns>
-        public int modifyHealth(int v1, int v2)
+        public int modifyHealth()
         {
-            return Health - 20;
+            throw new NotImplementedException();
         }
     }
 
