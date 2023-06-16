@@ -39,6 +39,12 @@
                 x:Name="ExitGame"
                 Text="Exit"
                 HorizontalOptions="Center" />
+            
+            <Entry 
+                x:Name="WhatsOccurin"
+                Placeholder="OH! What's occurin'?"
+                TextChanged="WhatsOccurin_TextChanged"
+                />
 
 
 

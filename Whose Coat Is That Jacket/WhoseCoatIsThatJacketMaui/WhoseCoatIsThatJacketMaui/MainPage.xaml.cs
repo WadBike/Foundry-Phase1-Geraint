@@ -10,7 +10,8 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
-	}
+    }
+
 
 	private void OnCounterClicked(object sender, EventArgs e)
 	{
@@ -19,5 +20,9 @@ public partial class MainPage : ContentPage
 		startInfo.FileName = @"C:\Users\gerai\Documents\Repos\Whose Coat Is That Jacket\Whose Coat Is That Jacket\bin\Debug\net7.0\Whose Coat Is That Jacket.exe";
 		Process.Start(startInfo);
     }
-}
 
+    private void WhatsOccurin_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+}
